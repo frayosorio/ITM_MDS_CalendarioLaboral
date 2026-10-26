@@ -1,8 +1,7 @@
 package calendariolaboral.api.core.servicios;
 
 import java.util.List;
-
-import entidades.Tipo;
+import calendariolaboral.api.dominio.entidades.*;
 
 public interface ITipoServicio {
 

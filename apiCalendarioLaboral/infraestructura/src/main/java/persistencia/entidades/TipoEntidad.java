@@ -1,4 +1,4 @@
-package calendariolaboral.api.infrestructura.persistencia.entidades;
+package calendariolaboral.api.infraestructura.persistencia.entidades;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -20,12 +20,12 @@ public class TipoEntidad {
     @Column(name = "tipo", length = 100, unique = true)
     private String tipo;
 
-    public Tipo(int id, String tipo) {
+    public TipoEntidad(int id, String tipo) {
         this.id = id;
         this.tipo = tipo;
     }
 
-    public Tipo() {
+    public TipoEntidad() {
     }
 
     public int getId() {

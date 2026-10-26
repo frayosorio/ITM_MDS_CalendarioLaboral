@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import calendariolaboral.api.dominio.entidades.*;
-import calendariolaboral.api.infraestructura.repositorios.*;
+import calendariolaboral.api.core.repositorios.*;
 
 @Service
 public class UsuarioDetalleServicio implements UserDetailsService {
@@ -17,7 +17,7 @@ public class UsuarioDetalleServicio implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String nombreUsuario) throws UsernameNotFoundException {
-        Usuario usuarioObtenido = repositorio.obtener(nombreUsuario);
+        Usuario usuarioObtenido = repositorio.obtener(nombreUsuario).get();
         if (usuarioObtenido == null) {
             throw new UsernameNotFoundException(nombreUsuario);
         }

@@ -1,4 +1,4 @@
-package calendariolaboral.api.dominio.DTOs;
+package calendariolaboral.api.dominio.dtos;
 
 import java.time.LocalDate;
 

@@ -1,4 +1,4 @@
-package calendariolaboral.api.infrestructura.persistencia.entidades;
+package calendariolaboral.api.infraestructura.persistencia.entidades;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -40,8 +40,7 @@ public class FestivoEntidad {
     }
 
 
-
-    public FestivoEntidad(int id, String nombre, int dia, int mes, int diasPascua, Pais pais, TipoFestivo tipo) {
+    public FestivoEntidad(int id, String nombre, int dia, int mes, int diasPascua, PaisEntidad pais, TipoFestivoEntidad tipo) {
         this.id = id;
         this.nombre = nombre;
         this.dia = dia;
@@ -50,8 +49,6 @@ public class FestivoEntidad {
         this.pais = pais;
         this.tipo = tipo;
     }
-
-
 
     public int getId() {
         return id;
@@ -93,26 +90,19 @@ public class FestivoEntidad {
         this.diasPascua = diasPascua;
     }
 
-    public Pais getPais() {
+    public PaisEntidad getPais() {
         return pais;
     }
 
-    public void setPais(Pais pais) {
+    public void setPais(PaisEntidad pais) {
         this.pais = pais;
     }
 
-
-
-    public TipoFestivo getTipo() {
+    public TipoFestivoEntidad getTipo() {
         return tipo;
     }
 
-
-
-    public void setTipo(TipoFestivo tipo) {
+    public void setTipo(TipoFestivoEntidad tipo) {
         this.tipo = tipo;
     }
-
-
-
 }

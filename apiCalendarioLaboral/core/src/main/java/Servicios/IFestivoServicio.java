@@ -3,7 +3,7 @@ package calendariolaboral.api.core.servicios;
 import java.time.LocalDate;
 import java.util.List;
 
-import calendariolaboral.api.dominio.DTOs.FestivoDto;
+import calendariolaboral.api.dominio.dtos.FestivoDto;
 import calendariolaboral.api.dominio.entidades.*;
 
 public interface IFestivoServicio {

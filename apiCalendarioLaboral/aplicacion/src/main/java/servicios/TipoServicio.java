@@ -2,56 +2,49 @@ package calendariolaboral.api.aplicacion.servicios;
 
 import java.util.List;
 
-import org.springframework.data.domain.Sort;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import calendariolaboral.api.core.servicios.ITipoServicio;
-import entidades.Tipo;
-import persistencia.repositorios.jpa.ITipoRepositorio;
+import calendariolaboral.api.core.repositorios.ITipoRepositorio;
+import calendariolaboral.api.dominio.entidades.Tipo;
 
 @Service
 public class TipoServicio implements ITipoServicio {
 
-    private final ITipoRepositorio repositorio;
+    @Autowired
+    private ITipoRepositorio repositorio;
 
-    public TipoServicio(ITipoRepositorio repositorio) {
-        this.repositorio = repositorio;
-    }
 
     @Override
     public List<Tipo> listar() {
-        return repositorio.findAll(Sort.by(Sort.Direction.ASC, "tipo"));
+        return repositorio.listar();
     }
 
     @Override
     public Tipo obtener(int id) {
-        return repositorio.findById(id).orElse(null);
+        return repositorio.obtenerPorId(id).orElse(null);
     }
 
     @Override
-    public List<Tipo> buscar(String tipo) {
-        return repositorio.buscar(tipo);
+    public List<Tipo> buscar(String nombre) {
+        return repositorio.buscarPorNombre(nombre);
     }
 
     @Override
     public Tipo agregar(Tipo tipo) {
         tipo.setId(0);
-        return repositorio.save(tipo);
+        return repositorio.guardar(tipo);
     }
 
     @Override
     public Tipo modificar(Tipo tipo) {
-        if (repositorio.findById(tipo.getId()).isEmpty()) return null;
-        return repositorio.save(tipo);
+        var tipoEncontrado = repositorio.obtenerPorId(tipo.getId());
+        return tipoEncontrado.isEmpty() ? null : repositorio.guardar(tipo);
     }
 
     @Override
     public boolean eliminar(int id) {
-        try {
-            repositorio.deleteById(id);
-            return true;
-        } catch (Exception ex) {
-            return false;
-        }
+        return repositorio.eliminar(id);
     }
 }

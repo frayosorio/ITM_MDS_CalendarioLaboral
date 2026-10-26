@@ -1,65 +1,53 @@
 package calendariolaboral.api.aplicacion.servicios;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.data.domain.Sort;
 
-import calendariolaboral.api.aplicacion.servicios.ServicioFechas;
 import calendariolaboral.api.core.servicios.*;
 import calendariolaboral.api.dominio.entidades.*;
-import calendariolaboral.api.dominio.DTOs.*;
-import calendariolaboral.api.infraestructura.repositorios.*;
+import calendariolaboral.api.dominio.dtos.*;
+import calendariolaboral.api.core.repositorios.*;
 
 @Service
 public class FestivoServicio implements IFestivoServicio {
 
+    @Autowired
     private IFestivoRepositorio repositorio;
-
-    public FestivoServicio(IFestivoRepositorio repositorio) {
-        this.repositorio = repositorio;
-    }
 
     @Override
     public List<Festivo> listar() {
-        return repositorio.findAll(Sort.by(Sort.Direction.ASC, "nombre"));
+        return repositorio.listar();
     }
 
     @Override
     public Festivo obtener(int id) {
-        return repositorio.findById(id).isEmpty() ? null : repositorio.findById(id).get();
+        return repositorio.obtenerPorId(id).orElse(null);
     }
 
     @Override
     public List<Festivo> buscar(String nombre) {
-        return repositorio.buscar(nombre);
+        return repositorio.buscarPorNombre(nombre);
     }
 
     @Override
     public Festivo agregar(Festivo festivo) {
         festivo.setId(0);
-        return repositorio.save(festivo);
+        return repositorio.guardar(festivo);
     }
 
     @Override
     public Festivo modificar(Festivo festivo) {
-        if (repositorio.findById(festivo.getId()).isEmpty())
-            return null;
-        return repositorio.save(festivo);
+        var festivoEncontrado = repositorio.obtenerPorId(festivo.getId());
+        return festivoEncontrado.isEmpty() ? null : repositorio.guardar(festivo);
     }
 
     @Override
     public boolean eliminar(int id) {
-        try {
-            repositorio.deleteById(id);
-            return true;
-        } catch (Exception ex) {
-            return false;
-        }
+        return repositorio.eliminar(id);
     }
 
     @Override

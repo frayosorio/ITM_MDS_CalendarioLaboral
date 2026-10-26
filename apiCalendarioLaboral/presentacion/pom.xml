@@ -20,6 +20,11 @@
             <artifactId>aplicacion</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>calendariolaboral</groupId>
+            <artifactId>infraestructura</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
 
         <dependency>
             <groupId>org.springdoc</groupId>

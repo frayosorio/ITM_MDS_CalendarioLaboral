@@ -20,11 +20,6 @@
             <artifactId>core</artifactId>
             <version>0.0.1-SNAPSHOT</version> <!-- O usa la versión que corresponda -->
         </dependency>
-        <dependency>
-            <groupId>calendariolaboral</groupId> <!-- Ajusta según el paquete de tu proyecto -->
-            <artifactId>infraestructura</artifactId>
-            <version>0.0.1-SNAPSHOT</version> <!-- O usa la versión que corresponda -->
-        </dependency>
     </dependencies>
     <build>
         <plugins>

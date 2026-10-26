@@ -2,7 +2,7 @@ package calendariolaboral.api.core.servicios;
 
 import java.util.List;
 import calendariolaboral.api.dominio.entidades.*;
-import calendariolaboral.api.dominio.DTOs.*;
+import calendariolaboral.api.dominio.dtos.*;
 
 public interface IUsuarioServicio {
 
@@ -10,7 +10,7 @@ public interface IUsuarioServicio {
 
     public List<Usuario> listar();
 
-    public Usuario obtener(Long id);
+    public Usuario obtener(int id);
 
     public List<Usuario> buscar(String nombre);
 
@@ -18,5 +18,5 @@ public interface IUsuarioServicio {
 
     public Usuario modificar(Usuario Usuario);
 
-    public boolean eliminar(Long id);
+    public boolean eliminar(int id);
 }

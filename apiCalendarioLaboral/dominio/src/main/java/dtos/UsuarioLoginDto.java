@@ -1,4 +1,4 @@
-package calendariolaboral.api.dominio.DTOs;
+package calendariolaboral.api.dominio.dtos;
 
 import calendariolaboral.api.dominio.entidades.Usuario;
 

@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import calendariolaboral.api.dominio.entidades.*;
 import calendariolaboral.api.core.servicios.*;
-import calendariolaboral.api.infraestructura.repositorios.*;
+import calendariolaboral.api.core.repositorios.*;
 
 @Service
 public class PaisServicio implements IPaisServicio {
@@ -20,44 +20,33 @@ public class PaisServicio implements IPaisServicio {
 
     @Override
     public List<Pais> listar() {
-        return repositorio.findAll();
+        return repositorio.listar();
     }
 
     @Override
     public Pais obtener(int id) {
-        var pais = repositorio.findById(id);
-        return pais.isEmpty() ? null : pais.get();
+        return repositorio.obtenerPorId(id).orElse(null);
     }
 
     @Override
     public List<Pais> buscar(String nombre) {
-        return repositorio.buscar(nombre);
+        return repositorio.buscarPorNombre(nombre);
     }
 
     @Override
     public Pais agregar(Pais pais) {
         pais.setId(0);
-        return repositorio.save(pais);
+        return repositorio.guardar(pais);
     }
 
     @Override
     public Pais modificar(Pais pais) {
-        Optional<Pais> paisEncontrado = repositorio.findById(pais.getId());
-        if (!paisEncontrado.isEmpty()) {
-            return repositorio.save(pais);
-        } else {
-            return null;
-        }
+        var paisEncontrado = repositorio.obtenerPorId(pais.getId());
+        return paisEncontrado.isEmpty() ? null : repositorio.guardar(pais);
     }
 
-    @Override
     public boolean eliminar(int id) {
-        try {
-            repositorio.deleteById(id);
-            return true;
-        } catch (Exception ex) {
-            return false;
-        }
+        return repositorio.eliminar(id);
     }
 
 

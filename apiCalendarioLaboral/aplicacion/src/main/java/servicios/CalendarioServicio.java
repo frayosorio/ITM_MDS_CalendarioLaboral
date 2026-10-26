@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
+import java.time.DayOfWeek;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,12 +14,10 @@ import org.springframework.stereotype.Service;
 import calendariolaboral.api.core.servicios.ICalendarioServicio;
 import calendariolaboral.api.core.servicios.IFestivoServicio;
 import calendariolaboral.api.core.servicios.IPaisServicio;
-import calendariolaboral.api.dominio.DTOs.FestivoDto;
-import calendariolaboral.api.dominio.entidades.Calendario;
-import entidades.Tipo;
-import calendariolaboral.api.dominio.entidades.Pais;
-import persistencia.repositorios.jpa.ICalendarioRepositorioJpa;
-import persistencia.repositorios.jpa.ITipoRepositorio;
+import calendariolaboral.api.dominio.dtos.FestivoDto;
+import calendariolaboral.api.dominio.entidades.*;
+import calendariolaboral.api.core.repositorios.ITipoRepositorio;
+import calendariolaboral.api.core.repositorios.ICalendarioRepositorio;
 
 @Service
 public class CalendarioServicio implements ICalendarioServicio {
@@ -30,31 +28,33 @@ public class CalendarioServicio implements ICalendarioServicio {
     @Autowired
     private ITipoRepositorio repositorioTipo;
     @Autowired
-    private ICalendarioRepositorioJpa repositorio;
+    private ICalendarioRepositorio repositorio;
     @Autowired
     private IFestivoServicio festivoServicio;
     @Autowired
     private IPaisServicio paisServicio;
 
 
-    public static boolean fechasIguales(LocalDate fecha1, Date fecha2) {
-        LocalDate localDate2 = fecha2.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        return fecha1.equals(localDate2);
+    public static boolean fechasIguales(LocalDate fecha1, LocalDate fecha2) {
+        return fecha1.equals(fecha2);
     }
 
-    private boolean esFestivo(Date fechaBuscada) {
+    private boolean esFestivo(LocalDate fechaBuscada) {
         Optional<FestivoDto> festivoEncontrado = festivos.stream()
                 .filter(festivo -> fechasIguales(festivo.getFecha(), fechaBuscada))
                 .findFirst();
         return festivoEncontrado.isPresent();
     }
 
-    private String obtenerDiaSemana(Date fecha) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(fecha);
-        int diaSemana = calendar.get(Calendar.DAY_OF_WEEK);
-        String[] diasSemana = { "Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado" };
-        return diasSemana[diaSemana - 1];
+    private String obtenerDiaSemana(LocalDate fecha) {
+        String[] diasSemana = {
+                "Lunes", "Martes", "Miércoles", "Jueves",
+                "Viernes", "Sábado", "Domingo"
+        };
+
+        DayOfWeek diaSemana = fecha.getDayOfWeek();
+
+        return diasSemana[diaSemana.getValue() - 1];
     }
 
     private boolean esFinSemana(String nombreDia) {
@@ -73,9 +73,9 @@ public class CalendarioServicio implements ICalendarioServicio {
             System.out.println(festivo.getFecha() + " " + festivo.getNombre());
         }
 
-        Tipo tipo1 = repositorioTipo.findById(1).get();
-        Tipo tipo2 = repositorioTipo.findById(2).get();
-        Tipo tipo3 = repositorioTipo.findById(3).get();
+        Tipo tipo1 = repositorioTipo.obtenerPorId(1).get();
+        Tipo tipo2 = repositorioTipo.obtenerPorId(2).get();
+        Tipo tipo3 = repositorioTipo.obtenerPorId(3).get();
 
         List<Calendario> fechas = new ArrayList<>();
         Calendar calendar = Calendar.getInstance();
@@ -85,7 +85,11 @@ public class CalendarioServicio implements ICalendarioServicio {
         while (calendar.get(Calendar.YEAR) == año) {
             System.out.println("Fecha a procesar "+calendar.getTime());
             Calendario calendario = new Calendario();
-            calendario.setFecha(calendar.getTime());
+            LocalDate fecha = calendar.getTime().toInstant()
+                    .atZone(ZoneId.systemDefault())
+                    .toLocalDate();
+
+            calendario.setFecha(fecha);
             if (esFestivo(calendario.getFecha()))
                 calendario.setTipo(tipo3);
             else if (esFinSemana(obtenerDiaSemana(calendario.getFecha())))
@@ -110,7 +114,7 @@ public class CalendarioServicio implements ICalendarioServicio {
                 calendario.setId(0);
 
             }
-            repositorio.save(calendario);
+            repositorio.guardar(calendario);
         }
         return true;
     }

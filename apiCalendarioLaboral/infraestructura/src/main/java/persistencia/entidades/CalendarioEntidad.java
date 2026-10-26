@@ -1,6 +1,6 @@
-package calendariolaboral.api.infrestructura.persistencia.entidades;
+package calendariolaboral.api.infraestructura.persistencia.entidades;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -23,31 +23,30 @@ public class CalendarioEntidad {
     private int id;
 
     @Column(name = "fecha", unique = true)
-    private Date fecha;
+    private LocalDate fecha;
 
     @ManyToOne
     @JoinColumn(name = "idtipo", referencedColumnName = "id")
-    private Tipo tipo;
+    private TipoEntidad tipo;
 
     @Column(name = "descripcion")
     private String descripcion;
 
     @ManyToOne
     @JoinColumn(name = "idpais", referencedColumnName = "id")
-    private Pais pais;
+    private PaisEntidad pais;
 
     public CalendarioEntidad() {
     }
 
-    public CalendarioEntidad(int id, Date fecha, Tipo tipo, String descripcion, Pais pais) {
+
+    public CalendarioEntidad(int id, LocalDate fecha, TipoEntidad tipo, String descripcion, PaisEntidad pais) {
         this.id = id;
         this.fecha = fecha;
         this.tipo = tipo;
         this.descripcion = descripcion;
         this.pais = pais;
     }
-
-
 
     public int getId() {
         return id;
@@ -57,24 +56,23 @@ public class CalendarioEntidad {
         this.id = id;
     }
 
-    public Pais getPais() {
+    public PaisEntidad getPais() {
         return pais;
     }
 
-    public void setPais(Pais pais) {
+    public void setPais(PaisEntidad pais) {
         this.pais = pais;
     }
 
-    public Date getFecha() {
+    public LocalDate getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
 
 
-    
     public String getDescripcion() {
         return descripcion;
     }
@@ -83,11 +81,11 @@ public class CalendarioEntidad {
         this.descripcion = descripcion;
     }
 
-    public Tipo getTipo() {
+    public TipoEntidad getTipo() {
         return tipo;
     }
 
-    public void setTipo(Tipo tipo) {
+    public void setTipo(TipoEntidad tipo) {
         this.tipo = tipo;
     }
 

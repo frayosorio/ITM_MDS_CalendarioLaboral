@@ -1,4 +1,4 @@
-package calendariolaboral.api.infrestructura.persistencia.repositorios.jpa;
+package calendariolaboral.api.infraestructura.persistencia.repositorios.jpa;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import calendariolaboral.api.infrestructura.persistencia.entidades.entidades.*;
+import calendariolaboral.api.infraestructura.persistencia.entidades.*;
 
 @Repository
 public interface IFestivoRepositorioJpa extends JpaRepository<FestivoEntidad, Integer> {

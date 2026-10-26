@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import calendariolaboral.api.core.servicios.IFestivoServicio;
-import calendariolaboral.api.dominio.DTOs.FestivoDto;
+import calendariolaboral.api.dominio.dtos.FestivoDto;
 import calendariolaboral.api.dominio.entidades.Festivo;
 
 @RestController

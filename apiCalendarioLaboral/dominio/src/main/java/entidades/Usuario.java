@@ -2,7 +2,7 @@ package calendariolaboral.api.dominio.entidades;
 
 public class Usuario {
 
-    private long id;
+    private int id;
     private String usuario;
     private String nombre;
     private String clave;
@@ -16,20 +16,22 @@ public class Usuario {
         this.roles = roles;
     }
 
-    public Usuario(long id, String usuario, String nombre) {
+    public Usuario(int id, String usuario, String nombre, String clave, String roles) {
         this.id = id;
         this.usuario = usuario;
         this.nombre = nombre;
+        this.clave = clave;
+        this.roles = roles;
     }
 
     public Usuario() {
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

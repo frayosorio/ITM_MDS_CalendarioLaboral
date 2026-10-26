@@ -1,4 +1,4 @@
-package calendariolaboral.api.infrestructura.persistencia.entidades;
+package calendariolaboral.api.infraestructura.persistencia.entidades;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

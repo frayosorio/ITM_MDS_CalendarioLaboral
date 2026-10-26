@@ -1,20 +1,18 @@
 package calendariolaboral.api.dominio.entidades;
 
-import entidades.Tipo;
-
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Calendario {
 
     private int id;
-    private Date fecha;
+    private LocalDate fecha;
     private Tipo tipo;
     private String descripcion;
     private Pais pais;
     public Calendario() {
     }
 
-    public Calendario(int id, Date fecha, Tipo tipo, String descripcion, Pais pais) {
+    public Calendario(int id, LocalDate fecha, Tipo tipo, String descripcion, Pais pais) {
         this.id = id;
         this.fecha = fecha;
         this.tipo = tipo;
@@ -40,11 +38,11 @@ public class Calendario {
         this.pais = pais;
     }
 
-    public Date getFecha() {
+    public LocalDate getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
 

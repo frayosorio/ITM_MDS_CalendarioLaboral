@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-import calendariolaboral.api.dominio.DTOs.*;
+import calendariolaboral.api.dominio.dtos.*;
 import calendariolaboral.api.dominio.entidades.*;
 import calendariolaboral.api.core.servicios.*;
 
@@ -31,7 +31,7 @@ public class UsuarioControlador {
     }
 
     @RequestMapping(value = "/obtener/{id}", method = RequestMethod.GET)
-    public Usuario obtener(@PathVariable long id) {
+    public Usuario obtener(@PathVariable int id) {
         return servicio.obtener(id);
     }
 
@@ -51,7 +51,7 @@ public class UsuarioControlador {
     }
 
     @RequestMapping(value = "/eliminar/{id}", method = RequestMethod.DELETE)
-    public boolean eliminar(@PathVariable long id) {
+    public boolean eliminar(@PathVariable int id) {
         return servicio.eliminar(id);
     }
 
